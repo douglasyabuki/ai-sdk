@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     tools,
     messages,
     maxSteps: 5,
-    system: `Sempre responda em markdown sem aspas no início ou final da mensagem.`,
+    system: `Always reply in markdown without quotes at the beginning or end of the message.`,
   });
 
   return result.toDataStreamResponse();

@@ -1,13 +1,15 @@
-import { Plus } from 'lucide-react'
-import { ChatHistory } from './chat-history'
+import { Plus } from "lucide-react";
+import { ChatHistory } from "./chat-history";
 
 export function Sidebar() {
   return (
-    <aside className="bg-zinc-950 h-dvh border-r border-zinc-900 p-4 space-y-4">
+    <aside className="h-dvh space-y-4 border-r border-zinc-900 bg-zinc-950 p-4">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-medium text-zinc-400 tracking-tight">Recent chats</span>
+        <span className="text-sm font-medium tracking-tight text-zinc-400">
+          Recent chats
+        </span>
 
-        <button className="uppercase rounded-md text-sm flex items-center justify-center text-zinc-400 font-medium border border-zinc-800 size-6 cursor-pointer hover:bg-zinc-900">
+        <button className="flex size-6 cursor-pointer items-center justify-center rounded-md border border-zinc-800 text-sm font-medium text-zinc-400 uppercase hover:bg-zinc-900">
           <Plus className="size-4" />
           <span className="sr-only">New chat</span>
         </button>
@@ -15,5 +17,5 @@ export function Sidebar() {
 
       <ChatHistory />
     </aside>
-  )
+  );
 }

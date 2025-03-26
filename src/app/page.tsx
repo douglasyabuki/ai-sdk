@@ -2,7 +2,7 @@ import { Chat } from "@/components/chat";
 
 export default function Home() {
   return (
-    <div className="max-w-3xl w-full mx-auto flex flex-col gap-6 justify-between py-6 relative h-dvh">
+    <div className="relative mx-auto flex h-dvh w-full max-w-3xl flex-col justify-between gap-6 py-6">
       <Chat />
     </div>
   );
