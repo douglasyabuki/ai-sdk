@@ -1,50 +1,17 @@
 import { openrouter } from "@/ai/open-router";
-import { streamText, tool } from "ai";
-import { NextRequest } from "next/server";
-import { z } from "zod";
+import { tools } from "@/ai/tools";
+import { streamText } from "ai";
+import { type NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
   const { messages } = await request.json();
 
   const result = streamText({
     model: openrouter.chat("openai/gpt-4o-2024-11-20"),
-    tools: {
-      profileAndUrls: tool({
-        description:
-          "Essa ferramenta serve para buscar do perfil de um usuário do GitHub ou acessar URLs da API para outras informações de um usuário como lista de organizações, repositórios, eventos, seguidores, seguindo, etc...",
-        parameters: z.object({
-          username: z.string().describe("Username do usuário no GitHub"),
-        }),
-        execute: async ({ username }) => {
-          const response = await fetch(
-            `https://api.github.com/users/${username}`
-          );
-          const data = await response.json();
-
-          return JSON.stringify(data);
-        },
-      }),
-
-      fetchHTTP: tool({
-        description:
-          "Essa ferramenta serve para realizar uma requisição HTTP em uma URL especificada e acessar sua resposta",
-        parameters: z.object({
-          url: z.string().describe("URL a ser requisitada"),
-        }),
-        execute: async ({ url }) => {
-          const response = await fetch(url);
-          const data = await response.text();
-
-          return data;
-        },
-      }),
-    },
+    tools,
     messages,
     maxSteps: 5,
     system: `Sempre responda em markdown sem aspas no início ou final da mensagem.`,
-    onStepFinish({ toolResults }) {
-      console.log(toolResults);
-    },
   });
 
   return result.toDataStreamResponse();
