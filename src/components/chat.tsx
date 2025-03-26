@@ -12,6 +12,13 @@ import { ToolLoading } from "./tool-loading";
 export function Chat() {
   const { messages, input, handleInputChange, handleSubmit, status } = useChat({
     api: "/api/ai",
+    initialMessages: [
+      {
+        id: "init-1",
+        role: "assistant",
+        content: "Hi, how can I help you today?",
+      },
+    ],
   });
 
   const containerRef = useRef<HTMLDivElement>(null);
